@@ -169,6 +169,30 @@ kubectl describe pod myapp-pod
 
 ---
 
+## Deletion Process
+
+### Delete a Pod Using a JSON Definition
+```bash
+kubectl delete -f ./pod.json
+```
+
+### Delete a Pod with Minimal Delay
+```bash
+kubectl delete pod foo --now
+```
+
+### Force Delete a Pod on a Dead Node
+```bash
+kubectl delete pod foo --force
+```
+
+### Delete All Pods
+```bash
+kubectl delete pods --all
+```
+
+---
+
 ## Conclusion
 
 This document serves as a basic guide to Kubernetes architecture, commands, and pod management. Keep updating it as you explore more Kubernetes features!
