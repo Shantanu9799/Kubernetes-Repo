@@ -171,9 +171,9 @@ kubectl describe pod myapp-pod
 
 ## Deletion Process
 
-### Delete a Pod Using a JSON Definition
+### Delete a Pod Using a YAML Definition
 ```bash
-kubectl delete -f ./pod.json
+kubectl delete -f pod.yaml
 ```
 
 ### Delete a Pod with Minimal Delay
