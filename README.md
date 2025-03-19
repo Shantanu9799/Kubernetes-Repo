@@ -35,16 +35,84 @@ This is the brain of the Kubernetes cluster, responsible for managing the Worker
 
 ## Common Kubernetes Commands
 
+### Check Kubernetes Version
+Check the client and server version of Kubernetes.
 ```bash
-kubectl version  # Client and Server version related to Kubernetes
-kubectl --help  # List of all commands
-kubectl get nodes  # Outputs the Name, Status, Roles, Age, and Version of all nodes
-kubectl get nodes -o wide  # Outputs additional details like internal port, external port, OS image, etc.
-kubectl run nginx --image=nginx  # Create a pod with the name nginx using the nginx image from Docker Hub
-kubectl get pods  # List all the pods available with details
+kubectl version
+```
+
+### Get Help
+List all available Kubernetes commands.
+```bash
+kubectl --help
+```
+
+### List All Nodes
+Outputs the Name, Status, Roles, Age, and Version of all nodes.
+```bash
+kubectl get nodes
+```
+
+### List Nodes with Additional Details
+Displays extra information such as internal port, external port, OS image, kernel version, etc.
+```bash
+kubectl get nodes -o wide
+```
+
+### Create a Pod Imperatively
+Creates a pod named `nginx` using the nginx image from Docker Hub.
+```bash
+kubectl run nginx --image=nginx
+```
+
+### List All Pods
+Displays all available pods with details.
+```bash
+kubectl get pods
 ```
 
 ---
+
+## Kubernetes Object Fields
+
+### 1. `apiVersion`
+Specifies the API version to be used for the Kubernetes object.
+- **Pod:** `v1`
+- **Service:** `v1`
+- **ReplicaSet:** `apps/v1`
+- **Deployment:** `apps/v1`
+
+```yaml
+apiVersion: v1  # Correct API version for Pod
+```
+
+### 2. `kind`
+Defines the type of Kubernetes object to be created. It is case-sensitive.
+- Example values: `Pod`, `Service`, `ReplicaSet`, `Deployment`
+
+```yaml
+kind: Pod  # Specifies the type of object
+```
+
+### 3. `metadata`
+Provides metadata about the object, such as its name and labels.
+
+```yaml
+metadata:
+  name: myapp-pod  # Name of the pod
+  labels:
+    app: myapp  # Labels for the pod
+```
+
+### 4. `spec`
+Specifies the desired state of the object, such as container details.
+
+```yaml
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+```
 
 ## POD: Basic Configuration
 
@@ -65,11 +133,28 @@ spec:
 
 ### Commands for Managing Pods
 
+### Create a Pod from YAML
+Creates a pod using the provided YAML configuration.
 ```bash
-kubectl create -f pod-definition.yaml  # Create pod from the YAML definition
-kubectl apply -f pod-definition.yaml  # Create/update pod with YAML definition
-kubectl get pods  # List all pods
-kubectl describe pod myapp-pod  # Detailed information about the pod
+kubectl create -f pod-definition.yaml
+```
+
+### Apply Changes to a Pod
+Creates or updates a pod with the provided YAML definition.
+```bash
+kubectl apply -f pod-definition.yaml
+```
+
+### List All Pods
+Displays all available pods with details.
+```bash
+kubectl get pods
+```
+
+### Describe a Pod
+Provides detailed information about a specific pod, including its name, namespace, container image, state, conditions, and events.
+```bash
+kubectl describe pod myapp-pod
 ```
 
 ---
