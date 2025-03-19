@@ -130,6 +130,7 @@ spec:
     - name: nginx-container
       image: nginx
 ```
+---
 
 ### Commands for Managing Pods
 
