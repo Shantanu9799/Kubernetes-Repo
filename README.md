@@ -261,6 +261,35 @@ We have two ways to do this:
    kubectl replace -f replicaset-definition.yaml
    ```
 
+   ### Fixing CrashLoopBackOff for BusyBox
+If a busybox container exits immediately, modify the YAML to keep it running:
+```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: new-replica-set
+  labels:
+    tier: frontend
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - image: busybox
+        name: busybox
+        command: ["sh", "-c", "while true; do echo Hello, Kubernetes!; sleep 10; done"]
+```
+### Why This Works?
+- `sh -c` starts a shell.
+- `while true; do echo Hello, Kubernetes!; sleep 10; done` runs an infinite loop to prevent the container from exiting.
+
+
    ---
 
 ## Conclusion
