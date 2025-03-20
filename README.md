@@ -193,6 +193,76 @@ kubectl delete pods --all
 
 ---
 
+## REPLICASET
+
+An application is running on a pod, and if the application crashes and pods go down, users will lose access. To prevent this, we need **ReplicaSet**. ReplicaSet **creates, manages, and monitors pods**. If any pods go down, ReplicaSet brings them back, ensuring the desired and current state always match. Kube-Scheduler assigns which pod will be created in which node, but ReplicaSet can create pods dynamically in any cluster or node to manage load.
+
+### ReplicaSet Definition (`replicaset-definition.yaml`)
+
+```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+spec: 
+  template:
+    metadata: 
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+```
+
+### Commands
+
+#### Create a ReplicaSet
+```bash
+kubectl create -f replicaset-definition.yaml
+```
+
+#### Check the ReplicaSet
+```bash
+kubectl get replicaset
+```
+
+#### Delete the ReplicaSet
+```bash
+kubectl delete replicaset myapp-replicaset
+```
+
+Now, inside `spec` of ReplicaSet, we see the entire pod definition. This is because we are creating a ReplicaSet for pods. `replicas` stands for `the desired number of pods`. It can be any number depending on requirements. `selector` and `matchLabels` help ReplicaSet `monitor and manage specific pods`.
+
+### Scaling in ReplicaSet
+
+#### Scenario: Increase Replicas from 3 to 6
+We have two ways to do this:
+
+1. **Using Scale Command** _(Not Recommended)_
+   ```bash
+   kubectl scale --replicas=6 -f replicaset-definition.yaml
+   ```
+   This increases the replicas to 6, but the main config file still shows 3. This is not the best approach.
+
+2. **Updating the YAML File and Replacing ReplicaSet** _(Correct Approach)_
+   - First, update `replicas` in `replicaset-definition.yaml` to `6`.
+   - Then, run the following command:
+   ```bash
+   kubectl replace -f replicaset-definition.yaml
+   ```
+
+   ---
+
 ## Conclusion
 
 This document serves as a basic guide to Kubernetes architecture, commands, and pod management. Keep updating it as you explore more Kubernetes features!
