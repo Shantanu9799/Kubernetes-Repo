@@ -21,6 +21,9 @@ Kubernetes solves four key challenges that Docker alone struggles with:
 
 ## Kubernetes Architecture
 
+![Kubernetes Logo](images/Kubernetes-Cluster.png)
+
+
 ### Worker Nodes / Data Plane
 These nodes are responsible for running applications and handling workloads. The key components are:
 
