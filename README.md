@@ -328,10 +328,12 @@ spec:
 
 Till now, we understand how we can deploy applications using Kubernetes Pods and ReplicaSets. However, in a production environment, these methods are not efficient. If we need to update the application to a newer version or apply changes, we would have to update each pod one by one manually. If the update fails, we must roll back to the previous version. Additionally, we might want to pause the application before starting an update rollout and resume it after the update is complete. The **Kubernetes Deployment** object helps manage these tasks efficiently.
 
-A **Deployment** provides a higher level of abstraction than ReplicaSet and allows us to:
+A **Deployment** provides a higher level in Hierarchy than ReplicaSet and allows us to:
 - Perform **rolling updates** and **rollbacks** in case of failure.
 - **Pause and resume** application in between update rolling.
 - Scale applications easily.
+
+![Deployment-Object-Hierarchy](images/Deployment-Object.png)
 
 ### Deployment Definition (`deployment-definition.yaml`)
 
