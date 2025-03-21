@@ -292,6 +292,154 @@ spec:
 
    ---
 
+
+---
+
+## DEPLOYMENT
+
+Till now, we understand how we can deploy applications using Kubernetes Pods and ReplicaSets. However, in a production environment, these methods are not efficient. If we need to update the application to a newer version or apply changes, we would have to update each pod one by one manually. If the update fails, we must roll back to the previous version. Additionally, we might want to pause the application before starting an update rollout and resume it after the update is complete. The **Kubernetes Deployment** object helps manage these tasks efficiently.
+
+A **Deployment** provides a higher level of abstraction than ReplicaSet and allows us to:
+- Perform **rolling updates** and **rollbacks** in case of failure.
+- **Pause and resume** application in between update rolling.
+- Scale applications easily.
+
+### Deployment Definition (`deployment-definition.yaml`)
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: myapp-deployment
+  labels:
+    app: myapp
+    type: front-end
+spec: 
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+  template:
+    metadata: 
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+```
+
+### Commands
+
+#### Create a Deployment
+```bash
+kubectl create -f deployment-definition.yaml
+```
+
+#### Check the Deployment
+```bash
+kubectl get deployments
+```
+
+#### Get Detailed Information About a Deployment
+```bash
+kubectl describe deployment myapp-deployment
+```
+
+#### Delete the Deployment
+```bash
+kubectl delete deployment myapp-deployment
+```
+
+Using the `kubectl get replicaset` command, we can verify that a ReplicaSet named `myapp-deployment` has been created. Since ReplicaSets manage and creates pods, we can use the `kubectl get pods` command to check the pods associated with this ReplicaSet created by the `Deployment` object.
+
+
+#### View All Created Objects by Kubernetes
+```bash
+kubectl get all
+```
+
+
+  ### Updating a Deployment
+
+To update the image in a deployment, we can use two approaches:
+
+#### 1. Imperative Approach (Command-Based)
+Command will be like:
+```bash
+kubectl set image deployment / deployment-name container-name=new-image
+```
+
+For thw above exapmle file, the command is 
+```bash
+kubectl set image deployment/myapp-deployment \ nginx-conatiner=nginx:1.9.1
+```
+
+#### 1. Declarative Approach (YAML-Based)
+Modify `deployment-definition.yaml` as follows:
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: myapp-deployment
+  labels:
+    app: myapp
+    type: front-end
+spec: 
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+  template:
+    metadata: 
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.9.1
+```
+Then apply the updated file:
+
+```bash
+kubectl apply -f deployment-definition.yaml
+```
+This ensures a smooth update rollout while maintaining availability.
+
+
+ ### Scaling a Deployment
+ #### Scale Up to 5 Replicas
+```bash
+kubectl scale deployment myapp-deployment --replicas=5
+```
+
+#### Scale Down to 2 Replicas
+```bash
+kubectl scale deployment myapp-deployment --replicas=2
+```
+### Rolling Back a Deployment
+#### If a new update fails and we need to revert to the previous working version:
+```bash
+kubectl rollout undo deployment myapp-deployment
+```
+#### Check the Rollout History
+```bash
+kubectl rollout history deployment myapp-deployment
+```
+#### Pause the Deployment Update
+```bash
+kubectl rollout pause deployment myapp-deployment
+```
+#### Resume the Deployment Update
+```bash
+kubectl rollout resume deployment myapp-deployment
+```
+
+
+
+
 ## Conclusion
 
 This document serves as a basic guide to Kubernetes architecture, commands, and pod management. Keep updating it as you explore more Kubernetes features!
