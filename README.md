@@ -1,5 +1,8 @@
 # Kubernetes Notes
 
+![Kubernetes Logo](images/kubernetes-logo.png)
+
+
 ## K8S Basics
 
 Docker is a container creation platform, while Kubernetes is a container orchestration platform.
