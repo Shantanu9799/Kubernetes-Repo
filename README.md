@@ -10,7 +10,11 @@ Kubernetes solves four key challenges that Docker alone struggles with:
 3. **Auto-Healing**
 4. **Enterprise Support**
 
+   ---
+
+
 ---
+
 
 ## Kubernetes Architecture
 
@@ -30,6 +34,9 @@ This is the brain of the Kubernetes cluster, responsible for managing the Worker
 3. **ETCD** – The database of Kubernetes. It stores cluster state and configurations in a key-value format, acting like a backup (similar to terraform.tfstate.backup).
 4. **Controller Manager** – Ensures the cluster is always in the desired state. It monitors if Pods are running as expected and takes action when needed (e.g., auto-scaling).
 5. **Cloud Controller Manager (CCM)** – Allows cloud providers to integrate their own services (e.g., AWS EKS, GCP GKE, Azure AKS) with Kubernetes.
+
+   ---
+
 
 ---
 
@@ -70,6 +77,9 @@ Displays all available pods with details.
 ```bash
 kubectl get pods
 ```
+
+   ---
+
 
 ---
 
@@ -130,6 +140,10 @@ spec:
     - name: nginx-container
       image: nginx
 ```
+
+   ---
+
+
 ---
 
 ### Commands for Managing Pods
@@ -158,6 +172,9 @@ Provides detailed information about a specific pod, including its name, namespac
 kubectl describe pod myapp-pod
 ```
 
+   ---
+
+
 ---
 
 ## Difference Between `kubectl create` and `kubectl apply`
@@ -166,6 +183,9 @@ kubectl describe pod myapp-pod
 |---------|-------------|
 | `kubectl create -f pod.yaml` | Creates the resource defined in `pod.yaml`. Fails if the resource already exists. Best for one-time creation. |
 | `kubectl apply -f pod.yaml` | Creates or updates the resource declaratively. If the resource exists, only changes are applied. Preferred for managing configurations over time. |
+
+   ---
+
 
 ---
 
@@ -190,6 +210,9 @@ kubectl delete pod foo --force
 ```bash
 kubectl delete pods --all
 ```
+
+   ---
+
 
 ---
 
@@ -368,7 +391,7 @@ To update the image in a deployment, we can use two approaches:
 #### 1. Imperative Approach (Command-Based)
 Command will be like:
 ```bash
-kubectl set image deployment / deployment-name container-name=new-image
+kubectl set image deployment/deployment-name \ container-name=new-image
 ```
 
 For thw above exapmle file, the command is 
@@ -436,6 +459,11 @@ kubectl rollout pause deployment myapp-deployment
 ```bash
 kubectl rollout resume deployment myapp-deployment
 ```
+
+   ---
+
+---
+
 
 
 
