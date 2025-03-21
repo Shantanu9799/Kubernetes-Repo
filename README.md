@@ -21,7 +21,7 @@ Kubernetes solves four key challenges that Docker alone struggles with:
 
 ## Kubernetes Architecture
 
-![Kubernetes Logo](images/Kubernetes-Cluster.png)
+![Kubernetes Architecture](images/Kubernetes_Cluster.png)
 
 
 ### Worker Nodes / Data Plane
