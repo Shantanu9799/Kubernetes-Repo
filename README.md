@@ -285,6 +285,32 @@ We have two ways to do this:
 
 2. **Updating the YAML File and Replacing ReplicaSet** _(Correct Approach)_
    - First, update `replicas` in `replicaset-definition.yaml` to `6`.
+
+```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+spec: 
+  template:
+    metadata: 
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 6
+  selector:
+    matchLabels:
+      type: front-end
+```
+
    - Then, run the following command:
    ```bash
    kubectl replace -f replicaset-definition.yaml
