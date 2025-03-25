@@ -132,12 +132,13 @@ spec:
       image: nginx
 ```
 
-## POD: Basic Configuration
+## POD
+
+A Pod in Kubernetes is the `smallest deployable unit` that represents a single instance of a running process. It can contain one or more containers that share `storage, network, and a specification` for how they should run. Pods are managed by controllers like Deployments or StatefulSets for scaling and lifecycle management.
 
 ![Pod Architecture](images/Pod-Example.png)
 
-A basic pod definition in declarative format (`pod-definition.yaml`) must include:
-
+### Pod Definition (`pod-definition.yaml`)
 ```yaml
 apiVersion: v1  # Correct API version for Pod
 kind: Pod  # Specifies the type of object
@@ -151,72 +152,64 @@ spec:
       image: nginx
 ```
 
-   ---
-
-
 ---
 
 ### Commands for Managing Pods
 
-### Create a Pod from YAML
+#### Create a Pod from YAML
 Creates a pod using the provided YAML configuration.
 ```bash
 kubectl create -f pod-definition.yaml
 ```
 
-### Apply Changes to a Pod
+#### Apply Changes to a Pod
 Creates or updates a pod with the provided YAML definition.
 ```bash
 kubectl apply -f pod-definition.yaml
 ```
 
-### List All Pods
+#### List All Pods
 Displays all available pods with details.
 ```bash
 kubectl get pods
 ```
 
-### Describe a Pod
+#### Describe a Pod
 Provides detailed information about a specific pod, including its name, namespace, container image, state, conditions, and events.
 ```bash
 kubectl describe pod myapp-pod
 ```
 
-   ---
-
-
 ---
 
-## Difference Between `kubectl create` and `kubectl apply`
+### Difference Between `kubectl create` and `kubectl apply`
 
 | Command | Description |
 |---------|-------------|
 | `kubectl create -f pod.yaml` | Creates the resource defined in `pod.yaml`. Fails if the resource already exists. Best for one-time creation. |
 | `kubectl apply -f pod.yaml` | Creates or updates the resource declaratively. If the resource exists, only changes are applied. Preferred for managing configurations over time. |
 
-   ---
-
 
 ---
 
-## Deletion Process
+### Deletion Process
 
-### Delete a Pod Using a YAML Definition
+#### Delete a Pod Using a YAML Definition
 ```bash
 kubectl delete -f pod.yaml
 ```
 
-### Delete a Pod with Minimal Delay
+#### Delete a Pod with Minimal Delay
 ```bash
 kubectl delete pod foo --now
 ```
 
-### Force Delete a Pod on a Dead Node
+#### Force Delete a Pod on a Dead Node
 ```bash
 kubectl delete pod foo --force
 ```
 
-### Delete All Pods
+#### Delete All Pods
 ```bash
 kubectl delete pods --all
 ```
