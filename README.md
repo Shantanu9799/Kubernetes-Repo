@@ -221,7 +221,7 @@ kubectl delete pods --all
 
 ## REPLICASET
 
-An application is running on a pod, and if the application crashes and pods go down, users will lose access. To prevent this, we need **ReplicaSet**. ReplicaSet **creates, manages, and monitors pods**. If any pods go down, ReplicaSet brings them back, ensuring the desired and current state always match. Kube-Scheduler assigns which pod will be created in which node, but ReplicaSet can create pods dynamically in any cluster or node to manage load.
+An application is running on a pod, and if the application crashes and pods go down, users will lose access. To prevent this, we need **ReplicaSet**. ReplicaSet `creates, manages, and monitors pods`. If any pods go down, ReplicaSet brings them back, ensuring the `desired and current state` always match. Kube-Scheduler assigns which pod will be created in which node, but ReplicaSet can create pods dynamically in any cluster or node to manage load.
 
 ![ReplicaSet Architecture](images/ReplicaSet-Example.png)
 
@@ -252,6 +252,8 @@ spec:
       type: front-end
 ```
 
+---
+
 ### Commands
 
 #### Create a ReplicaSet
@@ -270,6 +272,8 @@ kubectl delete replicaset myapp-replicaset
 ```
 
 Now, inside `spec` of ReplicaSet, we see the entire pod definition. This is because we are creating a ReplicaSet for pods. `replicas` stands for `the desired number of pods`. It can be any number depending on requirements. `selector` and `matchLabels` help ReplicaSet `monitor and manage specific pods`.
+
+---
 
 ### Scaling in ReplicaSet
 
@@ -314,6 +318,8 @@ spec:
    ```bash
    kubectl replace -f replicaset-definition.yaml
    ```
+
+---
 
    ### Fixing CrashLoopBackOff for BusyBox
 If a busybox container exits immediately, modify the YAML to keep it running:
@@ -385,6 +391,8 @@ spec:
         - name: nginx-container
           image: nginx
 ```
+
+---
 
 ### Commands
 
