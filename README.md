@@ -416,7 +416,7 @@ Using the `kubectl get replicaset` command, we can verify that a ReplicaSet name
 ```bash
 kubectl get all
 ```
-
+---
 
   ### Updating a Deployment
 
@@ -465,7 +465,7 @@ kubectl apply -f deployment-definition.yaml
 ```
 This ensures a smooth update rollout while maintaining availability.
 
-
+---
  ### Scaling a Deployment
  #### Scale Up to 5 Replicas
 ```bash
@@ -476,6 +476,8 @@ kubectl scale deployment myapp-deployment --replicas=5
 ```bash
 kubectl scale deployment myapp-deployment --replicas=2
 ```
+
+---
 ### Rolling Back a Deployment
 #### If a new update fails and we need to revert to the previous working version:
 ```bash
@@ -498,7 +500,7 @@ kubectl rollout resume deployment myapp-deployment
 
 ---
 
-
+## SERVICE
 
 
 
