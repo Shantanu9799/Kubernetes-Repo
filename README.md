@@ -23,7 +23,7 @@ Kubernetes solves four key challenges that Docker alone struggles with:
 
 ![Kubernetes Architecture](images/Kubernetes_Cluster.png)
 
-
+---
 ### Worker Nodes / Data Plane
 These nodes are responsible for running applications and handling workloads. The key components are:
 
@@ -31,6 +31,8 @@ These nodes are responsible for running applications and handling workloads. The
 2. **PODs** – The smallest deployable unit in Kubernetes. Each POD can contain one or more containers that share the same storage and network.
 3. **Kubelet** – A critical component that ensures the Pods are running and healthy. It continuously communicates with the Control Plane to report the node’s status.
 4. **Kube-Proxy** – Unlike Docker’s bridge networking, Kube-Proxy manages network communication, assigns IP addresses, and ensures proper inter-Pod connectivity.
+
+---
 
 ### Master Node / Control Plane
 This is the brain of the Kubernetes cluster, responsible for managing the Worker Nodes. The key components are:
