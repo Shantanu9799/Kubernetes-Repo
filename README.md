@@ -134,6 +134,8 @@ spec:
 
 ## POD: Basic Configuration
 
+![Pod Architecture](images/Pod-Example.png)
+
 A basic pod definition in declarative format (`pod-definition.yaml`) must include:
 
 ```yaml
@@ -227,6 +229,8 @@ kubectl delete pods --all
 ## REPLICASET
 
 An application is running on a pod, and if the application crashes and pods go down, users will lose access. To prevent this, we need **ReplicaSet**. ReplicaSet **creates, manages, and monitors pods**. If any pods go down, ReplicaSet brings them back, ensuring the desired and current state always match. Kube-Scheduler assigns which pod will be created in which node, but ReplicaSet can create pods dynamically in any cluster or node to manage load.
+
+![ReplicaSet Architecture](images/ReplicaSet-Example.png)
 
 ### ReplicaSet Definition (`replicaset-definition.yaml`)
 
