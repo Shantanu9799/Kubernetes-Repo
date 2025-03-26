@@ -533,7 +533,7 @@ Similarly, to expose the Web Server to external users, we can create another Ser
 
 ![Service-Object-Diff](images/different-services-example.png)
 
-#### ClusterIP
+### ClusterIP
 
 A **ClusterIP** Service is used for internal communication within a Kubernetes cluster and is not exposed outside of it. It enables different services to connect with each other. 
 
@@ -543,7 +543,7 @@ Using `labels` and `selectors`, we can create a `ReplicaSet` of Pods and use the
 
 ![Service-Object-ClusterIP](images/ClusterIP-example.png)
 
-### ClusterIP Service Definition (`service-definition.yaml`)
+#### ClusterIP Service Definition (`service-definition.yaml`)
 
 ```yaml
 apiVersion: v1
@@ -593,7 +593,7 @@ kubectl get services
 
 
 
-#### NodePort
+### NodePort
 
 A **NodePort** Service exposes an application on a static port on each node’s IP, making it accessible to external users. In the above example, the `web-service` uses **NodePort**, allowing external users to access the web server through a specific port on any node in the cluster.
 
@@ -602,7 +602,53 @@ A **NodePort** Service exposes an application on a static port on each node’s 
 
 ![Service-Object-Diff](images/NodePort-example.png)
 
+#### NodePort Service Definition (`service-definition.yaml`)
 
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 6379
+      port: 6379
+      nodePort: 30008
+  selector:
+    app: myapp
+    name: redis-pod
+```
+
+---
+
+### Commands
+
+#### Create a Service
+```bash
+kubectl create -f service-definition.yaml
+```
+
+#### Check the Deployment
+```bash
+kubectl get services
+```
+
+#### Accessing the Web-Service
+```bash
+curl http://192.168.1.2:30008
+```
+
+---
+
+
+### Important Notes on Service Ports
+
+1. **Port is a mandatory field** for every Service, whether it is of type **ClusterIP** or **NodePort**.
+2. **If `targetPort` is not specified**, Kubernetes automatically sets it to the same value as `port`.
+3. **For a NodePort Service, if no port is specified,** Kubernetes automatically assigns a free port from the range `30000-32767`.
+
+---
 
 
 
