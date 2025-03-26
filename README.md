@@ -560,6 +560,50 @@ spec:
     name: redis-pod
 ```
 
+---
+
+### Commands
+
+#### Create a Service
+```bash
+kubectl create -f service-definition.yaml
+```
+
+#### Check the Deployment
+```bash
+kubectl get services
+```
+
+---
+
+### Port vs. TargetPort
+
+- **Port (Service Port):**
+  - This is the port that the Kubernetes Service exposes internally within the cluster.
+  - Other pods in the cluster use this port to communicate with the service.
+
+- **TargetPort (Pod Port):**
+  - This is the port on which the application inside the pod is actually listening.
+  - The service forwards traffic received on the **Port** to this **TargetPort** on the selected pod(s).
+  - If not specified, it defaults to the same value as **Port**.
+
+![Service-Object-ClusterIP](images/port-targetport.png)
+
+---
+
+
+
+#### NodePort
+
+A **NodePort** Service exposes an application on a static port on each node’s IP, making it accessible to external users. In the above example, the `web-service` uses **NodePort**, allowing external users to access the web server through a specific port on any node in the cluster.
+
+- **NodePort Range:** Kubernetes assigns NodePort values from the default range `30000-32767`. The service is accessible via `NodeIP:NodePort` from outside the cluster.
+
+
+![Service-Object-Diff](images/NodePort-example.png)
+
+
+
 
 
 
