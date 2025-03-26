@@ -548,16 +548,16 @@ Using `labels` and `selectors`, we can create a `ReplicaSet` of Pods and use the
 ```yaml
 apiVersion: v1
 kind: Service
-metadata: 
-	name: redis-db
-spec: 
-	type: ClusterIP
-	ports:
-	  -  targetPort: 6379
-	      port: 6379
-	selector:
-		app: myapp
-		name: redis-pod
+metadata:
+  name: redis-db
+spec:
+  type: ClusterIP
+  ports:
+    - targetPort: 6379
+      port: 6379
+  selector:
+    app: myapp
+    name: redis-pod
 ```
 
 
