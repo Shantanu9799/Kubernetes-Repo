@@ -509,6 +509,18 @@ kubectl rollout resume deployment myapp-deployment
 
 ## SERVICE
 
+# Kubernetes Pod Communication Issue and Solution
+
+In a Kubernetes cluster, each Pod is assigned a unique IP address, enabling communication between them. Suppose we have deployed two Pods:
+
+1. A **Web Server Pod**  
+2. A **Redis Server Pod**  
+
+Initially, the Web Server Pod can communicate with the Redis Server Pod using its assigned IP address. However, if the Redis Server Pod goes down and a new Pod is created to replace it, Kubernetes will assign it a new IP address. This change will cause the Web Server Pod’s connection to break since it was using the previous IP address, making the code unreliable.
+
+To solve this issue, Kubernetes provides **Services**, which create a stable and consistent endpoint for communication. By exposing the Redis Server Pod through a `Service`, the Web Server Pod can always connect to it using the service name instead of the Pod IP, ensuring seamless communication even if the Redis Pod is recreated with a different IP.
+
+![Service-Object-Example-1](images/Service-example.png)
 
 
 ## Conclusion
