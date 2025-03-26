@@ -509,8 +509,6 @@ kubectl rollout resume deployment myapp-deployment
 
 ## SERVICE
 
-# Kubernetes Pod Communication Issue and Solution
-
 In a Kubernetes cluster, each Pod is assigned a unique IP address, enabling communication between them. Suppose we have deployed two Pods:
 
 1. A **Web Server Pod**  
@@ -521,6 +519,49 @@ Initially, the Web Server Pod can communicate with the Redis Server Pod using it
 To solve this issue, Kubernetes provides **Services**, which create a stable and consistent endpoint for communication. By exposing the Redis Server Pod through a `Service`, the Web Server Pod can always connect to it using the service name instead of the Pod IP, ensuring seamless communication even if the Redis Pod is recreated with a different IP.
 
 ![Service-Object-Example-1](images/Service-example.png)
+
+In the above example, we create a `redis-db` Service to facilitate communication between the Web Server Pod and the Redis Server Pod. By using this service, the Web Server can reliably connect to Redis without worrying about Pod IP changes.
+
+![Service-Object-Example-2](images/service-example-2.png)
+
+Similarly, to expose the Web Server to external users, we can create another Service, such as `web-service`. This allows users outside the cluster to access the Web Server. Thus, a `Service` can provide connectivity both within the cluster among its components and externally to end users.
+
+
+---
+
+### Different types of Services
+
+![Service-Object-Diff](images/different-services-example.png)
+
+#### ClusterIP
+
+A **ClusterIP** Service is used for internal communication within a Kubernetes cluster and is not exposed outside of it. It enables different services to connect with each other. 
+
+In the above example, the `redis-db` Service, which facilitates communication between the Web Server Pod and the Redis Server Pod, is an example of a `ClusterIP` Service. 
+
+Using `labels` and `selectors`, we can create a `ReplicaSet` of Pods and use these labels to connect them efficiently within the cluster.
+
+![Service-Object-ClusterIP](images/ClusterIP-example.png)
+
+### ClusterIP Service Definition (`service-definition.yaml`)
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata: 
+	name: redis-db
+spec: 
+	type: ClusterIP
+	ports:
+	  -  targetPort: 6379
+	      port: 6379
+	selector:
+		app: myapp
+		name: redis-pod
+```
+
+
+
 
 
 ## Conclusion
