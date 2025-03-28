@@ -600,7 +600,7 @@ A **NodePort** Service exposes an application on a static port on each node’s 
 - **NodePort Range:** Kubernetes assigns NodePort values from the default range `30000-32767`. The service is accessible via `NodeIP:NodePort` from outside the cluster.
 
 
-![Service-Object-Diff](images/NodePort-example.png)
+![NodePort](images/NodePort-example.png)
 
 #### NodePort Service Definition (`service-definition.yaml`)
 
@@ -638,6 +638,16 @@ kubectl get services
 ```bash
 curl http://192.168.1.2:30008
 ```
+
+---
+
+In a real-world scenario, there may be multiple Pods running the same application for load balancing, either on a single node or across multiple nodes. To efficiently manage traffic, we can create a single Service that selects all relevant Pods using selectors and exposes a NodePort to external users, ensuring seamless access and load distribution.
+
+
+![Real-scenario-nodeport](images/NodePort-example-2.png)
+
+
+---
 
 ---
 
