@@ -574,6 +574,11 @@ kubectl create -f service-definition.yaml
 kubectl get services
 ```
 
+#### Delete a Service
+```bash
+kubectl delete service redis-db
+```
+
 ---
 
 ### Port vs. TargetPort
