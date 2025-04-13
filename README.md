@@ -666,14 +666,14 @@ In a real-world scenario, there may be multiple Pods running the same applicatio
 
 ---
 
-## Miscellaneous
+# Miscellaneous
 
 ---
-### Update NodePort for Kubernetes Service via Command Line
+## Update NodePort for Kubernetes Service via Command Line
 
 This guide explains how to modify the `nodePort` value of a Kubernetes `NodePort` service from the command line, without needing to download or edit a YAML file manually.
 
-#### 🛠️ Prerequisites
+### 🛠️ Prerequisites
 - Kubernetes cluster access
 - `kubectl` configured and authenticated
 - Service type must be `NodePort`
@@ -687,7 +687,7 @@ To change the NodePort for a service named `nginx-service` from `30008` to `3216
 kubectl get svc nginx-service -o yaml | sed 's/nodePort: 30008/nodePort: 32165/' | kubectl apply -f -
 ```
 
-#### 🔍 Breakdown:
+### 🔍 Breakdown:
 - `kubectl get svc nginx-service -o yaml` – Gets the service definition in YAML.
 
 - `sed 's/nodePort: 30008/nodePort: 32165/'` – Replaces the old NodePort with the new one.
