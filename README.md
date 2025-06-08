@@ -494,6 +494,10 @@ kubectl rollout undo deployment myapp-deployment
 ```bash
 kubectl rollout history deployment myapp-deployment
 ```
+#### Rollback to a specific version
+```bash
+kubectl rollout undo deployment/myapp-deployment --to-revision=<revision-number>
+```
 #### Pause the Deployment Update
 ```bash
 kubectl rollout pause deployment myapp-deployment
